@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.webfluxdemo.ResponseMessage.Response;
 import com.example.webfluxdemo.model.Person;
 import com.example.webfluxdemo.repository.PersonRepository;
 
@@ -33,8 +34,10 @@ public class PersonController {
 	}
 
 	@PostMapping(value="/person-info")
-    public Mono<Person> addPersonDetails(@Valid @RequestBody Person person) {
-        return personRepository.save(person);
+    public  Mono<ResponseEntity<Response>> addPersonDetails(@Valid @RequestBody Person person) {
+
+	 	return personRepository.save(person).map(addPersonDetails -> new ResponseEntity<>(new Response("Details Saved Successfully",200),HttpStatus.OK));
+      
     }
 	@PutMapping("/person-info/{id}")
     public Mono<ResponseEntity<Person>> updatePerson(@PathVariable(value = "id") String personId,
