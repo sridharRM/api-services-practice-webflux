@@ -1,5 +1,7 @@
 package com.example.webfluxdemo.model;
 
+import java.util.ArrayList;
+
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.annotation.Id;
@@ -44,6 +46,8 @@ public class Person {
 	private String expDate;
 	
 	private String cvv;
+	
+	private ArrayList<Items>items;
 
 	public String getId() {
 		return id;
@@ -179,6 +183,14 @@ public class Person {
 
 	public void setCvv(String cvv) {
 		this.cvv = cvv;
+	}
+
+	public ArrayList<Items> getItems() {
+		return items;
+	}
+
+	public void setItems(ArrayList<Items> items) {
+		this.items = items;
 	}
 
 }

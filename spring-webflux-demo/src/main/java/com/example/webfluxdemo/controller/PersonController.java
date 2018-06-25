@@ -1,5 +1,7 @@
 package com.example.webfluxdemo.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.webfluxdemo.ResponseMessage.Response;
+import com.example.webfluxdemo.model.Items;
 import com.example.webfluxdemo.model.Person;
+import com.example.webfluxdemo.repository.ItemRepository;
 import com.example.webfluxdemo.repository.PersonRepository;
 
 import reactor.core.publisher.Flux;
@@ -26,6 +30,9 @@ public class PersonController {
 	
 	@Autowired
 	private PersonRepository personRepository;
+	
+	@Autowired
+	private ItemRepository itemRepository;
 	
 	@GetMapping("/person-info")
 	public Flux<Person> getPersonDetails()
@@ -62,5 +69,24 @@ public class PersonController {
                 .map(updatePerson -> new ResponseEntity<>(updatePerson, HttpStatus.OK))
                 .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+	//Item Details Implementation
+	   
+	   @PostMapping("/items-info")
+	   public Flux<Items> createItems(@Valid @RequestBody List<Items> items) {
+	   	return  itemRepository.saveAll(items);
+	       	
+	   }
+	   
+	   @GetMapping("/items-info")
+	   public Flux<Items> getItemDetails() {
+	       return itemRepository.findAll();
+	   }
+	   
+	   @GetMapping("/items-info/{itemName}")
+	public Mono<ResponseEntity<Items>> getItemByName(@PathVariable(value = "itemName") String itemNames) {
+	return itemRepository.findById(itemNames).map(savedItem -> ResponseEntity.ok(savedItem))
+	.defaultIfEmpty(ResponseEntity.notFound().build());
+	}
 	
 }
