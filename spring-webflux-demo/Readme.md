@@ -1,7 +1,5 @@
 # Build Reactive Rest APIs with Spring WebFlux and Reactive MongoDB
 
-Read the tutorial : https://www.callicoder.com/reactive-rest-apis-spring-webflux-reactive-mongo/
-
 ## Requirements
 
 1. Java - 1.8.x
@@ -15,13 +13,13 @@ Read the tutorial : https://www.callicoder.com/reactive-rest-apis-spring-webflux
 **1. Clone the application**
 
 ```bash
-git clone https://github.com/callicoder/spring-webflux-reactive-rest-api-demo.git
+git clone https://github.com/sridharRM/api-services-practice-webflux.git
 ```
 
 **2. Build and run the app using maven**
 
 ```bash
-cd spring-webflux-reactive-rest-api-demo
+cd api-services-practice-webflux
 mvn package
 java -jar target/webflux-demo-0.0.1-SNAPSHOT.jar
 ```
